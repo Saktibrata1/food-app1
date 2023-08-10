@@ -41,7 +41,7 @@ const Login = () => {
     e.preventDefault()
     const {email,password} = data
     if(email && password ){
-      const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/login`,{
+      const fetchData = await fetch(`http://food-app-backend-44jo.onrender.com/login`,{
         method : "POST",
         headers : {
           "content-type" : "application/json"
