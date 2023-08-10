@@ -8,23 +8,9 @@ const Stripe = require('stripe')
 
 const app = express();
 
-// CORS Configuration
-const allowedOrigins = [
-  "https://food-app-frntend.onrender.com"
-  // Add more allowed origins as needed
-];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-};
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 app.use(express.json({ limit: "10mb" }));
