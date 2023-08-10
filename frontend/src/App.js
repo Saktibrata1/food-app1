@@ -12,7 +12,7 @@ function App() {
  
   useEffect(()=>{
     (async()=>{
-      const res = await fetch(`http://localhost:8080/product`)
+      const res = await fetch(`https://food-app-backend-44jo.onrender.com/product`)
       const resData = await res.json()
       dispatch(setDataProduct(resData))
     })()
