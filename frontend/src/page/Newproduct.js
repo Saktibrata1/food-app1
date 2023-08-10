@@ -43,7 +43,7 @@ const Newproduct = () => {
     const {name,image,category,price} = data
 
     if(name && image && category && price){
-      const fetchData = await fetch(`http://food-app-backend-44jo.onrender.com/uploadProduct`,{
+      const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/uploadProduct`,{
         method : "POST",
         headers : {
           "content-type" : "application/json"

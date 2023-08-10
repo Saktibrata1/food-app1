@@ -54,7 +54,7 @@ console.log("http://localhost:8080")
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
     
-          const fetchData = await fetch(`http://food-app-backend-44jo.onrender.com/signup`,{
+          const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/signup`,{
             method : "POST",
             headers : {
               "content-type" : "application/json"

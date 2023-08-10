@@ -27,7 +27,7 @@ const Cart = () => {
       if(user.email){
           
           const stripePromise = await loadStripe("pk_test_51NaAYMSBLv0rHLAh6CyAYQEYfcqUDPm2k5PaAWZDkegISS19x9tBa1mBwbB73fDgook5ZCYGL5IgBNQng3AJuB0000fcos9R7j")
-          const res = await fetch(`http://food-app-backend-44jo.onrender.com/create-checkout-session`,{
+          const res = await fetch(`https://food-app-backend-44jo.onrender.com/create-checkout-session`,{
             method : "POST",
             headers  : {
               "content-type" : "application/json"
