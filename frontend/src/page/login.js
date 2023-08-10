@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import loginSignupImage from "../assest/login-animation.gif";
 import { BiShow, BiHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
-import { BsEmojiSmileUpsideDown } from "react-icons/bs";
 import {toast} from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,7 +41,7 @@ const Login = () => {
     e.preventDefault()
     const {email,password} = data
     if(email && password ){
-      const fetchData = await fetch(`http://localhost:8080/login`,{
+      const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/login`,{
         method : "POST",
         headers : {
           "content-type" : "application/json"

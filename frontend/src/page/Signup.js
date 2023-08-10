@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import loginSignupImage from "../assest/login-animation.gif";
 import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import { BsEmojiSmileUpsideDown } from "react-icons/bs";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
 
@@ -55,7 +54,7 @@ console.log("http://localhost:8080")
     if (firstName && email && password && confirmPassword) {
       if (password === confirmPassword) {
     
-          const fetchData = await fetch(`http://localhost:8080/signup`,{
+          const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/signup`,{
             method : "POST",
             headers : {
               "content-type" : "application/json"
