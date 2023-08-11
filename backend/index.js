@@ -28,7 +28,7 @@ require('dotenv').config({ path: 'config.env' });
 //mongodb connection
 mongoose.set("strictQuery", false);
 mongoose
-  .connect(dbUrl || "mongodb+srv://Saktibrata:OHF67pe9YLd8U4uJ@food-app.b9pl8l6.mongodb.net/FoodDelivery")
+  .connect(dbUrl || "mongodb://127.0.0.1:27017/FoodDelivery")
   .then(() => console.log("Connect to Databse"))
   .catch((err) => console.log(err));
 
