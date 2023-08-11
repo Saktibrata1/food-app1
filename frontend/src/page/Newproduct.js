@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
 import {BsCloudUpload} from "react-icons/bs"
 import { ImagetoBase64 } from '../utility/ImagetoBase64'
+import axios from 'axios'
 
 const Newproduct = () => {
   const [data,setData] = useState({
@@ -36,42 +37,42 @@ const Newproduct = () => {
       })
   }
 
-  const handleSubmit = async(e)=>{
-    e.preventDefault()
-    console.log(data)
-
-    const {name,image,category,price} = data
-
-    if(name && image && category && price){
-      const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/uploadProduct`,{
-        method : "POST",
-        headers : {
-          "content-type" : "application/json"
-        },
-        body : JSON.stringify(data)
-      })
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(data);
   
-      const fetchRes =  await fetchData.json()
+    const { name, image, category, price } = data;
   
-      console.log(fetchRes)
-      toast(fetchRes.message)
+    if (name && image && category && price) {
+      try {
+        const response = await axios.post(
+          `https://food-app-backend-44jo.onrender.com/uploadProduct`,
+          data // Just send the data object as the request body
+        );
+  
+        const fetchRes = response.data; // Use response.data to get the response JSON
+  
+        console.log(fetchRes);
+        toast(fetchRes.message);
+  
+        setData({
+          name: "",
+          category: "",
+          image: "",
+          price: "",
+          description: ""
+        });
+      } catch (error) {
+        console.error(error);
+        // Handle error, show an error message, etc.
+      }
+    } else {
+      toast("Enter required fields");
+    }
+  };
+  
 
-      setData(()=>{
-        return{
-          name : "",
-          category : "",
-          image : "",
-          price : "",
-          description : ""
-        }
-      })
-    }
-    else{
-      toast("Enter required Fields")
-    }
-    
-   
-  }
+
   return (
     <div className="p-4">
        <form className='m-auto w-full max-w-md  shadow flex flex-col p-3 bg-white' onSubmit={handleSubmit}>

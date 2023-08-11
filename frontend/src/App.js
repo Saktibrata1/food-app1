@@ -5,18 +5,25 @@ import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import { setDataProduct } from "./redux/productSlide";
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 
 function App() {
   const dispatch = useDispatch()
   const productData = useSelector((state)=>state.product)
  
-  useEffect(()=>{
-    (async()=>{
-      const res = await fetch(`https://food-app-backend-44jo.onrender.com/product`)
-      const resData = await res.json()
-      dispatch(setDataProduct(resData))
-    })()
-  },[])
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.get(`https://food-app-backend-44jo.onrender.com/product`);
+        const resData = response.data; // Use response.data to get the response JSON
+        dispatch(setDataProduct(resData));
+      } catch (error) {
+        console.error(error);
+        // Handle error, show an error message, etc.
+      }
+    })();
+  }, []);
+  
 
   return (
     <>

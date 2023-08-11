@@ -5,6 +5,7 @@ import emptyCartImage from "../assest/empty.gif"
 import { toast } from "react-hot-toast";
 import {loadStripe} from '@stripe/stripe-js';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Cart = () => {
   const productCartItem = useSelector((state) => state.product.cartItem);
@@ -20,36 +21,34 @@ const Cart = () => {
     0
   );
 
+  const handlePayment = async () => {
+    if (user.email) {
+      try {
+        const stripePromise = await loadStripe("pk_test_51NaAYMSBLv0rHLAh6CyAYQEYfcqUDPm2k5PaAWZDkegISS19x9tBa1mBwbB73fDgook5ZCYGL5IgBNQng3AJuB0000fcos9R7j");
+        
+        const response = await axios.post(`https://food-app-backend-44jo.onrender.com/create-checkout-session`, productCartItem);
+  
+        if (response.status === 500) return;
+  
+        const data = response.data;
+        console.log(data);
+  
+        toast("Redirect to payment Gateway...!");
+        stripePromise.redirectToCheckout({ sessionId: data });
+      } catch (error) {
+        console.error(error);
+        // Handle error, show an error message, etc.
+      }
+    } else {
+      toast("You have not logged in!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
+  };
   
   
-  const handlePayment = async()=>{
-
-      if(user.email){
-          
-          const stripePromise = await loadStripe("pk_test_51NaAYMSBLv0rHLAh6CyAYQEYfcqUDPm2k5PaAWZDkegISS19x9tBa1mBwbB73fDgook5ZCYGL5IgBNQng3AJuB0000fcos9R7j")
-          const res = await fetch(`https://food-app-backend-44jo.onrender.com/create-checkout-session`,{
-            method : "POST",
-            headers  : {
-              "content-type" : "application/json"
-            },
-            body  : JSON.stringify(productCartItem)
-          })
-          if(res.statusCode === 500) return;
-
-          const data = await res.json()
-          console.log(data)
-
-          toast("Redirect to payment Gateway...!")
-          stripePromise.redirectToCheckout({sessionId : data}) 
-      }
-      else{
-        toast("You have not Login!")
-        setTimeout(()=>{
-          navigate("/login")
-        },1000)
-      }
-    
-  }
+  
   return (
     <>
     

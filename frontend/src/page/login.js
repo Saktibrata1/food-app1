@@ -6,6 +6,7 @@ import {toast} from "react-hot-toast"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRedux } from "../redux/userSlice";
+import axios from "axios";
 
 
 const Login = () => {
@@ -37,36 +38,37 @@ const Login = () => {
     })
   }
 
-  const handleSubmit = async(e)=>{
-    e.preventDefault()
-    const {email,password} = data
-    if(email && password ){
-      const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/login`,{
-        method : "POST",
-        headers : {
-          "content-type" : "application/json"
-        },
-        body : JSON.stringify(data)
-      })
-
-      const dataRes = await fetchData.json()
-      console.log(dataRes)
-      
-      toast(dataRes.message)
-      
-      if(dataRes.alert){
-        dispatch(loginRedux(dataRes))
-        setTimeout(() => {
-          navigate("/")
-        }, 1000);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = data;
+    
+    if (email && password) {
+      try {
+        const response = await axios.post(`https://food-app-backend-44jo.onrender.com/login`, data);
+  
+        const dataRes = response.data;
+        console.log(dataRes);
+  
+        toast(dataRes.message);
+  
+        if (dataRes.alert) {
+          dispatch(loginRedux(dataRes));
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        }
+  
+        console.log(userData);
+      } catch (error) {
+        console.error(error);
+        // Handle error, show an error message, etc.
       }
+    } else {
+      alert("Please enter required fields");
+    }
+  };
+  
 
-      console.log(userData)
-    }
-    else{
-        alert("Please Enter required fields")
-    }
-  }
 
   return (
     <div className="p-3 md:p-4">

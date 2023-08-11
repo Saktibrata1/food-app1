@@ -4,6 +4,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { ImagetoBase64 } from "../utility/ImagetoBase64";
 import { toast } from "react-hot-toast";
+import axios from 'axios';
 
 function Signup() {
   const navigate = useNavigate();
@@ -48,36 +49,37 @@ function Signup() {
 
   }
 console.log("http://localhost:8080")
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    const { firstName, email, password, confirmPassword } = data;
-    if (firstName && email && password && confirmPassword) {
-      if (password === confirmPassword) {
-    
-          const fetchData = await fetch(`https://food-app-backend-44jo.onrender.com/signup`,{
-            method : "POST",
-            headers : {
-              "content-type" : "application/json"
-            },
-            body : JSON.stringify(data)
-          })
+ 
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const { firstName, email, password, confirmPassword } = data;
+  if (firstName && email && password && confirmPassword) {
+    if (password === confirmPassword) {
+      try {
+        const response = await axios.post(
+          `https://food-app-backend-44jo.onrender.com/signup`,
+          data // Just send the data object as the request body
+        );
 
-          const dataRes = await fetchData.json()
-    
+        const dataRes = response.data; // Use response.data to get the response JSON
 
-        // alert(dataRes.message);
-        toast(dataRes.message)
-        if(dataRes.alert){
+        toast(dataRes.message);
+        if (dataRes.alert) {
           navigate("/login");
         }
-       
-      } else {
-        alert("password and confirm password not equal");
+      } catch (error) {
+        console.error(error);
+        // Handle error, show an error message, etc.
       }
     } else {
-      alert("Please Enter required fields");
+      alert("Password and confirm password are not equal");
     }
-  };
+  } else {
+    alert("Please enter required fields");
+  }
+};
+
+
 
   return (
     <div className="p-3 md:p-4">
