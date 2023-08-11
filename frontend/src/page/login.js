@@ -44,7 +44,7 @@ const Login = () => {
     
     if (email && password) {
       try {
-        const response = await axios.post(`http://food-app-backend-44jo.onrender.com/login`, data);
+        const response = await axios.post(`https://food-app-backend-44jo.onrender.com/login`, data);
   
         const dataRes = response.data;
         console.log(dataRes);

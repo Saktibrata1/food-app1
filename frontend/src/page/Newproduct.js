@@ -46,7 +46,7 @@ const Newproduct = () => {
     if (name && image && category && price) {
       try {
         const response = await axios.post(
-          `http://food-app-backend-44jo.onrender.com/uploadProduct`,
+          `https://food-app-backend-44jo.onrender.com/uploadProduct`,
           data // Just send the data object as the request body
         );
   
