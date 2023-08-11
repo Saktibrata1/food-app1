@@ -14,7 +14,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`https://food-app-backend-44jo.onrender.com/product`);
+        const response = await axios.get(`http://food-app-backend-44jo.onrender.com/product`);
         const resData = response.data; // Use response.data to get the response JSON
         dispatch(setDataProduct(resData));
       } catch (error) {

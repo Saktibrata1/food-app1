@@ -57,7 +57,7 @@ const handleSubmit = async (e) => {
     if (password === confirmPassword) {
       try {
         const response = await axios.post(
-          `https://food-app-backend-44jo.onrender.com/signup`,
+          `http://food-app-backend-44jo.onrender.com/signup`,
           data // Just send the data object as the request body
         );
 

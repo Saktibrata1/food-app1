@@ -26,7 +26,7 @@ const Cart = () => {
       try {
         const stripePromise = await loadStripe("pk_test_51NaAYMSBLv0rHLAh6CyAYQEYfcqUDPm2k5PaAWZDkegISS19x9tBa1mBwbB73fDgook5ZCYGL5IgBNQng3AJuB0000fcos9R7j");
         
-        const response = await axios.post(`https://food-app-backend-44jo.onrender.com/create-checkout-session`, productCartItem);
+        const response = await axios.post(`http://food-app-backend-44jo.onrender.com/create-checkout-session`, productCartItem);
   
         if (response.status === 500) return;
   
