@@ -10,7 +10,12 @@ const app = express();
 
 
 
-app.use(cors());
+// Configure CORS to allow requests from your frontend domain
+const corsOptions = {
+  origin: "https://food-app-frntend.onrender.com"
+};
+
+app.use(cors(corsOptions));
 
 
 app.use(express.json({ limit: "10mb" }));
